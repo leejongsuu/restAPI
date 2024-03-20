@@ -55,7 +55,7 @@ class JpaRepositoryTest {
         assertThat(articleRepository.count()).isEqualTo(previousCount + 1);
     }
 
-    @DisplayName("insert 테스트")
+    @DisplayName("update 테스트")
     @Test
     void givenTestData_whenUpdating_thenWorksFine() {
         // Given
