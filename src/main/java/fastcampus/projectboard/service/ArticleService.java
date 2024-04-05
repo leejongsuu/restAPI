@@ -1,12 +1,16 @@
 package fastcampus.projectboard.service;
 
 import fastcampus.projectboard.domain.type.SearchType;
+import fastcampus.projectboard.dto.ArticleCommentDto;
 import fastcampus.projectboard.dto.ArticleDto;
+import fastcampus.projectboard.dto.ArticleUpdateDto;
 import fastcampus.projectboard.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
@@ -23,5 +27,16 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public ArticleDto searchArticle(long l) {
         return null;
+    }
+
+    public void saveArticle(ArticleDto dto) {
+//        articleRepository.save();
+    }
+
+    public void updateArticle(long articleId, ArticleUpdateDto dto) {
+    }
+
+    public void deleteArticle(long articleId) {
+
     }
 }

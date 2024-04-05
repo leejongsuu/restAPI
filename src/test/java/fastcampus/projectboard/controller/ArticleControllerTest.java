@@ -73,5 +73,4 @@ class ArticleControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("articles/search-hashtag"));
     }
-
 }
