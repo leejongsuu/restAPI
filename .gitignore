@@ -205,3 +205,6 @@ gradle-app.setting
 
 # Ignore QueryDSL generated files
 src/main/generated/
+
+# JPA Buddy
+.jpb/
