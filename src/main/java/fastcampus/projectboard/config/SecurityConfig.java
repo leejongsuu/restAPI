@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
+        return http.authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .requestMatchers(
@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/").permitAll());
-        return http.build();
+                        .logoutSuccessUrl("/").permitAll())
+                .build();
     }
 }
