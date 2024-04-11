@@ -15,25 +15,25 @@
 <main class="container">
     <header id="header"></header>
 
-    <main class="container">
+    <main th:object="${article}" class="container">
         <header class="py-5 text-center">
-            <h1>첫번째 글</h1>
+            <h1 th:text="*{title}">첫번째 글</h1>
         </header>
 
         <div class="row g-5">
             <section class="col-md-5 col-lg-4 order-md-last">
                 <aside>
-                    <p><span class="nick-name">Uno</span></p>
-                    <p><a class="u-url" rel="me" href="mailto:djkehh@gmail.com">uno@mail.com</a></p>
+                    <p><span th:text="*{nickname}">Uno</span></p>
+                    <p><a th:text="*{email}">uno@mail.com</a></p>
                     <p>
-                        <time datetime="2022-01-01T00:00:00">2022-01-01</time>
+                        <time th:datetime="*{createdAt}" th:text="*{#temporals.format(createdAt, 'yyyy-MM-dd-ss')}">2022-01-01</time>
                     </p>
-                    <p>#java</p>
+                    <p th:text="*{hashtag}">#java</p>
                 </aside>
             </section>
 
             <article class="col-md-7 col-lg-8">
-                <p>본문<br><br></p>
+                <p th:text="*{content}">본문<br><br></p>
             </article>
         </div>
 
@@ -50,12 +50,12 @@
                     </div>
                 </form>
 
-                <ul>
-                    <li>
+                <ul th:remove="all-but-first">
+                    <li th:each="articleComments : ${articleComments}">
                         <div>
-                            <time><small>2022-01-01</small></time>
-                            <strong>Uno</strong>
-                            <p>
+                            <strong th:text="${articleComments.nickname}">Uno</strong>
+                            <small><time th:datetime="${articleComments.createdAt}" th:text="${#temporals.format(articleComments.createdAt, 'yyyy-MM-dd-ss')}">2022-01-01</time></small>
+                            <p th:text="${articleComments.content}">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br>
                                 Lorem ipsum dolor sit amet
                             </p>
