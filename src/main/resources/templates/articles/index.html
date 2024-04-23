@@ -13,7 +13,7 @@
 
 <header th:replace="~{header :: header}"></header>
 
-<main class="container">
+<main class="container" th:object="${articles}">
     <div class="row">
         <div class="card card-margin search-form">
             <div class="card-body p-0">
@@ -57,38 +57,66 @@
 
     <table class="table" id="article-table">
         <thead>
-            <tr>
-                <th class="title col-6">제목</th>
-                <th class="hashtag col-3">해시태그</th>
-                <th class="user-id col">작성자</th>
-                <th class="created-at col">작성일</th>
-            </tr>
+        <tr>
+            <th class="title col-6">
+                <a th:text="제목" th:href="@{/articles(
+                    page=${articles.number},
+                    sort='title'+(*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc' : ''): '')
+                )}">
+                    제목
+                </a>
+            </th>
+            <th class="hashtag col-3">
+                <a th:text="해시태그" th:href="@{/articles(
+                    page=${articles.number},
+                    sort='hashtag'+(*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc' : ''): '')
+                )}">
+                    해시태그
+                </a>
+            </th>
+            <th class="user-id col">
+                <a th:href="@{/articles(
+                    page=${articles.number},
+                    sort='userAccount.userId'+(*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc' : ''): '')
+                )}">
+                    작성자
+                </a>
+            </th>
+            <th class="created-at col">
+                <a th:text="작성일" th:href="@{/articles(
+                    page=${articles.number},
+                    sort='createdAt'+(*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc' : ''): '')
+            )}">
+                    작성일
+                </a>
+            </th>
+        </tr>
         </thead>
-        <tbody>
-            <tr th:each="article : ${articles}">
-                <td>
-                    <a th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}">첫글</a>
-                </td>
-                <td th:text="${article.hashtag}">#java</td>
-                <td th:text="${article.nickname}">lee</td>
-                <td th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}">2024-03-02</td>
-            </tr>
-        </tbody>
+                <tbody>
+                    <tr th:each="article : ${articles}">
+                        <td>
+                            <a th:text="${article.title}" th:href="@{'/articles/' + ${article.id}}">첫글</a>
+                        </td>
+                        <td th:text="${article.hashtag}">#java</td>
+                        <td th:text="${article.nickname}">lee</td>
+                        <td th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd')}">2024-03-02</td>
+                    </tr>
+                </tbody>
     </table>
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a th:text="previous" th:href="@{articles(page=${articles.number -1})}">Previous</a>
-            </li>
-            <li class="page-item" th:each="pageNubmer : ${paginationBarNumbers}">
-                <a th:text="${pageNubmer + 1}" th:href="@{/articles(page=${pageNubmer})}">1</a>
-            </li>
-            <li class="page-item">
-                <a th:text="next" th:href="@{/articles(page=${articles.number +1})}">Next</a>
-            </li>
-        </ul>
-    </nav>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a th:text="previous" th:href="@{articles(page=${articles.number -1})}">Previous</a>
+                </li>
+                <li class="page-item" th:each="pageNubmer : ${paginationBarNumbers}">
+                    <a th:text="${pageNubmer + 1}" th:href="@{/articles(page=${pageNubmer})}">1</a>
+                </li>
+                <li class="page-item">
+                    <a th:text="next" th:href="@{/articles(page=${articles.number +1})}">Next</a>
+                </li>
+            </ul>
+        </nav>
 </main>
 
 <footer th:replace="~{footer :: footer}"></footer>
