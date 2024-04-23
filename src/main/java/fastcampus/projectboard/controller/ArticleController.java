@@ -1,7 +1,6 @@
 package fastcampus.projectboard.controller;
 
 import fastcampus.projectboard.domain.type.SearchType;
-import fastcampus.projectboard.dto.ArticleDto;
 import fastcampus.projectboard.dto.response.ArticleResponse;
 import fastcampus.projectboard.dto.response.ArticleWithCommentsResponse;
 import fastcampus.projectboard.service.ArticleService;
@@ -48,7 +47,9 @@ public class ArticleController {
         ArticleWithCommentsResponse article = ArticleWithCommentsResponse.from(articleService.getArticle(articleId));
         map.addAttribute("article", article);
         map.addAttribute("articleComments",article.articleCommentsResponse());
-
+        map.addAttribute("totalCount", articleService.getArticleCount());
         return "articles/detail";
     }
+
+
 }
